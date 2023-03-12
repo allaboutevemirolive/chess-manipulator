@@ -1,4 +1,4 @@
-package ChessConv.demo.src.main.java;
+package com.example;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

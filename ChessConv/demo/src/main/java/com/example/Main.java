@@ -1,4 +1,5 @@
-package ChessConv.demo.src.main.java;
+package com.example;
+
 
 import java.io.File;
 import java.io.IOException;
