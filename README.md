@@ -18,4 +18,11 @@ Place the downloaded `csv2pgn.exe` program and the Lichess puzzle database CSV f
 
 Open the `csv2pgn.exe` program and select the Lichess puzzle database CSV file. Then click on the "Convert" button to start the conversion process. The PGN file will be generated within a few seconds.
 
+## Need Help?
+
+If you have any improvement ideas or found any bugs, feel free to reach out to me on my social media platforms:
+
+- Twitter: https://twitter.com/akmalfirdxus
+- Instagram: https://www.instagram.com/akmxlfirdaus/
+
 That's it! You have successfully converted the Lichess puzzle database from CSV to PGN format.
