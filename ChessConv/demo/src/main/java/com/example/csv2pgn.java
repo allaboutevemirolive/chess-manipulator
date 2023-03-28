@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class csv2pgn {
-
     public void convertCsvToPgn(String inputFilename, String outputFilename) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFilename));
                 BufferedWriter writer = new BufferedWriter(new FileWriter(outputFilename))) {

@@ -1,6 +1,5 @@
 package com.example;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -22,16 +21,21 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    // Creating an object of csv2pgn class
     private final csv2pgn obj = new csv2pgn();
+    // Status label for showing messages
     private final Label statusLabel = new Label();
 
     @Override
     public void start(Stage primaryStage) {
+        // Root pane of BorderPane
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
+        // Select Button for choosing CSV file from File Chooser
         Button selectButton = new Button("Select CSV File");
         selectButton.setOnAction(e -> {
+            // Choose CSV file from file chooser and set the selected file name to status label
             FileChooser fileChooser = new FileChooser();
             File selectedFile = fileChooser.showOpenDialog(primaryStage);
             if (selectedFile != null) {
@@ -39,8 +43,10 @@ public class Main extends Application {
             }
         });
 
+        // Convert Button for converting CSV file into PGN format
         Button convertButton = new Button("Convert File");
         convertButton.setOnAction(e -> {
+            // Get the selected file name and call the function to convert the file
             String selectedFile = statusLabel.getText().replace("File selected: ", "");
             if (!selectedFile.isEmpty()) {
                 convertCsvToPgn(selectedFile);
@@ -49,19 +55,24 @@ public class Main extends Application {
             }
         });
 
+        // Info button for displaying author information
         Button infoButton = new Button("Info");
         infoButton.setOnAction(e -> {
             showInfoPopup();
         });
 
+        // Set width and alignment of status label
         statusLabel.setPrefWidth(400);
         statusLabel.setAlignment(Pos.CENTER);
 
+        // Create a HBox to store buttons
         HBox buttonsBox = new HBox(10, selectButton, convertButton, infoButton);
         buttonsBox.setAlignment(Pos.CENTER);
 
+        // Create a StackPane to display message/status
         StackPane statusPane = new StackPane(statusLabel);
 
+        // Add buttons to center and status pane to bottom of BorderPane
         root.setCenter(buttonsBox);
         root.setBottom(statusPane);
 
@@ -70,19 +81,24 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    // Function for converting CSV file into PGN format
     private void convertCsvToPgn(String inputFilename) {
+        // Output filename with .pgn extension
         String outputFilename = "output.pgn";
 
+        // Run conversion process in thread
         new Thread(() -> {
             long startTime = System.nanoTime();
 
             try {
                 obj.convertCsvToPgn(inputFilename, outputFilename);
+                // Show success message after execution
                 Platform.runLater(() -> {
                     long executionTime = TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startTime);
                     statusLabel.setText("Conversion successful! Execution time: " + executionTime + "ms");
                 });
             } catch (IOException ex) {
+                // If error occurs during conversion, show error message
                 ex.printStackTrace();
                 Platform.runLater(() -> {
                     statusLabel.setText("Error: " + ex.getMessage());
@@ -91,11 +107,14 @@ public class Main extends Application {
         }).start();
     }
 
+    // Function for displaying information popup about the author
     private void showInfoPopup() {
+        // Information labels
         Label authorLabel = new Label("Author: allaboutevemirolive");
         Label versionLabel = new Label("Version: 1.0");
         Label rightsLabel = new Label("Copyright 2023, allaboutevemirolive, All rights reserved.");
 
+        // Hyperlinks to author's social media accounts
         Hyperlink twitterLink = new Hyperlink("Twitter");
         twitterLink.setOnAction(e -> {
             getHostServices().showDocument("https://twitter.com/akmalfirdxus");
